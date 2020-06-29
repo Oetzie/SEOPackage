@@ -1,0 +1,123 @@
+{
+    "name": "SEO Package",
+    "lowCaseName": "seopackage",
+    "description": "A SEO package solution for MODX Revolution.",
+    "author": "Oetzie.nl",
+    "version": "1.0.0-pl",
+    "package":{
+        "menus": [{
+            "text": "seopackage",
+            "description": "seopackage.desc",
+            "parent": "components",
+            "action": "home",
+            "permissions": "seopackage"
+        }],
+        "elements": {
+            "plugins": [{
+                "name": "SEOPackage",
+                "file": "seopackage.plugin.php",
+                "events": [
+                    "OnLoadWebDocument",
+                    "OnPageNotFound",
+                    "OnDocFormSave",
+                    "OnResourceSort",
+                    "OnDocFormRender"
+                ]
+            }],
+            "chunks": [{
+                "name": "seoPackageSitemapItemTpl",
+                "file": "item.chunk.tpl"
+            },{
+                "name": "seoPackageSitemapWrapperTpl",
+                "file": "wrapper.chunk.tpl"
+            }],
+            "snippets": [{
+                "name": "SEOPackageSitemap",
+                "file": "sitemap.snippet.php"
+            }]
+        },
+        "systemSettings": [{
+            "key": "branding_url",
+            "value": "//www.oetzie.nl",
+            "area": "seopackage"
+        },{
+            "key": "branding_url_help",
+            "value": "//www.oetzie.nl",
+            "area": "seopackage"
+        },{
+            "key": "clean_days",
+            "value": "30",
+            "area": "seopackage"
+        },{
+            "key": "cronjob_hash",
+            "area": "seopackage"
+        },{
+            "key": "exclude_contexts",
+            "area": "seopackage"
+        },{
+            "key": "files",
+            "value": "pdf,txt,doc,txt,jpg,jpeg,png,gif,ico,js,css,map,webp,svg",
+            "area": "seopackage"
+        },{
+            "type": "combo-boolean",
+            "key": "migrate",
+            "value": 0,
+            "area": "seopackage"
+        },{
+            "key": "preview_search_engine",
+            "value": "google",
+            "area": "seopackage"
+        },{
+            "key": "seo_fields",
+            "value": "{\"google\": {\"pagetitle\": \"50|60\", \"longtitle\": \"50|60\", \"description\": \"50|160\"}, \"yandex\": {\"pagetitle\": \"50|60\", \"longtitle\": \"50|60\", \"description\": \"50|160\"}}",
+            "area": "seopackage"
+        },{
+            "key": "seo_fields_style",
+            "value": "bar",
+            "area": "seopackage"
+        },{
+            "type": "combo-boolean",
+            "key": "seo_index",
+            "value": "1",
+            "area": "seopackage_seo"
+        },{
+            "type": "combo-boolean",
+            "key": "seo_follow",
+            "value": "1",
+            "area": "seopackage_seo"
+        },{
+            "type": "combo-boolean",
+            "key": "seo_searchable",
+            "value": "1",
+            "area": "seopackage_seo"
+        },{
+            "type": "combo-boolean",
+            "key": "seo_sitemap",
+            "value": "1",
+            "area": "seopackage_seo"
+        },{
+            "key": "seo_sitemap_freq",
+            "value": "weekly",
+            "area": "seopackage_seo"
+        },{
+            "key": "seo_sitemap_prio",
+            "value": "0.5",
+            "area": "seopackage_seo"
+        },{
+            "key": "seo_title_format",
+            "value": "[[*longtitle:default=`[[*pagetitle]]`]] - [[++site_name]]",
+            "area": "seopackage_seo"
+        }]
+    },
+    "build":{
+        "readme": "docs/readme.txt",
+        "license": "docs/license.txt",
+        "changelog": "docs/changelog.txt",
+        "resolver": {
+            "after": [
+                "tables.resolver.php",
+                "permissions.resolver.php"
+            ]
+        }
+    }
+}

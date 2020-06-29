@@ -1,0 +1,241 @@
+/* Should be moved to default theme. */
+.x-menu-item-icon {
+    left: 7px !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    text-align: center !important;
+}
+
+/* Should be moved to default theme. */
+.x-btn-text .icon {
+    margin-right: 8px;
+}
+
+#modx-action-buttons .x-btn-branding {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    color: #555555 !important;
+}
+
+#modx-action-buttons .x-btn-migrate {
+    color: #363e43 !important;
+    border-color: #f9c316 !important;
+    background-color: #f9c316 !important;
+    box-shadow: none !important;
+    margin-left: 0 !important;
+}
+
+.x-toolbar-cell .x-form-check-wrap .x-form-cb-label {
+    padding-left: 22px !important;
+    line-height: 12px;
+}
+
+.x-toolbar-cell .x-form-check-wrap .x-form-cb-label:before {
+    top: -3px;
+}
+
+.x-grid-domain {
+    display: inline-block;
+    color: #fff;
+    background-color: #1a7fb8;
+    border-radius: 9px;
+    padding: 2px 5px;
+}
+
+.x-field-seo-counter {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    right: 1px;
+    min-width: 60px;
+    text-align: right;
+    line-height: 20px;
+    border-left: 1px solid #e4e4e4;
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+.x-field-seo-counter strong {
+    display: none;
+}
+
+/*
+.x-field-seo-counter-field .x-form-field {
+    padding-right: 65px;
+}
+*/
+
+.x-form-element.x-field-seo-bar-field .x-field-seo-bar {
+    width: 100%;
+    height: 6px;
+    border: 1px solid #e4e4e4;
+    background-color: #fbfbfb;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin: 5px 0 0;
+    overflow: hidden;
+}
+
+.x-form-element.x-field-seo-bar-field .x-field-seo-bar .x-field-seo-bar-current {
+    display: block;
+    height: 100%;
+    font-size: 0;
+    box-sizing: border-box;
+    transition: all .3s;
+}
+
+.x-form-element.x-field-seo-bar-field .x-field-seo-bar.red .x-field-seo-bar-current {
+    background-color: #be0000 !important;
+}
+
+.x-form-element.x-field-seo-bar-field .x-field-seo-bar.orange .x-field-seo-bar-current {
+    background-color: #f49548 !important;
+}
+
+.x-form-element.x-field-seo-bar-field .x-field-seo-bar.green .x-field-seo-bar-current {
+    background-color: #6Cb24a !important;
+}
+
+.x-form-element.x-field-seo-keyword-field .x-field-seo-keyword {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    color: #555555;
+    font-size: 12px;
+}
+
+.x-field-seo-meta {
+    padding: 10px;
+    background-color: #fbfbfb;
+    border: 1px solid #e4e4e4;
+    border-radius: 3px;
+}
+
+.x-field-seo-meta .x-field-seo-meta-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.x-field-seo-meta.disabled .x-field-seo-meta-data {
+    display: none;
+}
+
+.x-field-seo-meta .x-field-seo-meta-message {
+    display: none;
+}
+
+.x-field-seo-meta.disabled .x-field-seo-meta-message {
+    display: block;
+}
+
+.x-field-seo-meta .x-field-seo-meta-title {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.x-field-seo-meta .x-field-seo-meta-url {
+    font-size: 14px;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.x-field-seo-meta .x-field-seo-meta-url::after {
+    position: absolute;
+    display: inline-block;
+    margin: 12px 0 0 6px;
+    border-top: 5px solid #5f6368;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    content: '';
+}
+
+.x-field-seo-meta .x-field-seo-meta-favicon {
+    float: left;
+    width: 16px;
+    height: 16px;
+    margin: 6px 6px 0 0;
+}
+
+.x-field-seo-meta .x-field-seo-meta-secure {
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+.x-field-seo-meta .x-field-seo-meta-path {
+    position: relative;
+    display: inline-block;
+    padding-left: 15px;
+}
+
+.x-field-seo-meta .x-field-seo-meta-path::before {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    font-size: 24px;
+    line-height: 26px;
+    content: '›';
+}
+
+.x-field-seo-meta .x-field-seo-meta-description {
+    line-height: 20px;
+}
+
+/* Google */
+
+.x-field-seo-meta.x-field-seo-meta-google .x-field-seo-meta-title {
+    order: 2;
+    color: #1a0dab;
+    text-decoration: none;
+}
+
+.x-field-seo-meta.x-field-seo-meta-google .x-field-seo-meta-title:hover {
+    text-decoration: underline;
+}
+
+.x-field-seo-meta.x-field-seo-meta-google .x-field-seo-meta-url {
+    order: 1;
+    color: #202124;
+}
+
+.x-field-seo-meta.x-field-seo-meta-google .x-field-seo-meta-path {
+    color: #5f6368;
+}
+
+.x-field-seo-meta.x-field-seo-meta-google .x-field-seo-meta-description {
+    order: 3;
+    color: #4d5156;
+}
+
+/* Yandex */
+
+.x-field-seo-meta.x-field-seo-meta-yandex {
+    position: relative;
+    padding: 10px 10px 10px 35px;
+}
+
+.x-field-seo-meta.x-field-seo-meta-yandex .x-field-seo-meta-title {
+    color: #1a0dab;
+}
+
+.x-field-seo-meta.x-field-seo-meta-yandex .x-field-seo-meta-title:hover {
+    color: #c00;
+}
+
+.x-field-seo-meta.x-field-seo-meta-yandex .x-field-seo-meta-url {
+    color: #070;
+}
+
+.x-field-seo-meta.x-field-seo-meta-yandex .x-field-seo-meta-url:hover {
+    color: #c00;
+}
+
+.x-field-seo-meta.x-field-seo-meta-yandex .x-field-seo-meta-favicon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.x-field-seo-meta.x-field-seo-meta-yandex .x-field-seo-meta-description {
+    color: #333;
+}
