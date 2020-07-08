@@ -109,7 +109,7 @@ $_lang['seopackage.resource_sitemap_prio_desc']                 = 'Geef zoekmach
 $_lang['seopackage.resource_sitemap_freq']                      = 'Sitemap update frequentie';
 $_lang['seopackage.resource_sitemap_freq_desc']                 = 'Geef zoekmachines een indicatie hoevaak deze pagina gewijzigd word door de update frequentie in te stellen. Let op: je update frequentie wordt niet blindelings overgenomen door zoekmachines!';
 $_lang['seopackage.seo_preview']                                = 'Zoekmachine voorbeeld ([[+type]])';
-$_lang['seopackage.seo_preview_desc']                           = 'Add a description. If you don\'t, the searchengine will try to find a relevant piece of the page to show in the search results.';
+$_lang['seopackage.seo_preview_desc']                           = 'Voeg een omschrijving. Als je dat niet doet zal de zoekmachine proberen een relevant stukje uit de pagina te vinden om te tonen in de zoekresultaten.';
 $_lang['seopackage.resource_allowed_chars']                     = 'Karakters';
 $_lang['seopackage.resource_allowed_keywords']                  = 'Zoekmachine keyword(s)';
 
