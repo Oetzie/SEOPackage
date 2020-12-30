@@ -102,8 +102,12 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
 
             if (keywordsField) {
                 keywordsField.on('keyup', (function() {
-                    Ext.iterate(['pagetitle', 'longtitle', 'description', 'alias'], (function(key) {
-                        var field = Ext.getCmp('modx-resource-' + key);
+                    Ext.iterate(SeoPackage.config.seo_keywords_fields, (function(key) {
+                        if (key !== 'ta') {
+                            key = 'modx-resource-' + key;
+                        }
+
+                        var field = Ext.getCmp(key);
 
                         if (field) {
                             this.onHandleKeywords(field, keywordsField);
@@ -111,8 +115,12 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
                     }).bind(this));
                 }).bind(this));
 
-                Ext.iterate(['pagetitle', 'longtitle', 'description', 'alias'], (function(key) {
-                    var field = Ext.getCmp('modx-resource-' + key);
+                Ext.iterate(SeoPackage.config.seo_keywords_fields, (function(key) {
+                    if (key !== 'ta') {
+                        key = 'modx-resource-' + key;
+                    }
+
+                    var field = Ext.getCmp(key);
 
                     if (field) {
                         field.container.addClass('x-field-seo-keyword-field');

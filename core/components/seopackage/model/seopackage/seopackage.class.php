@@ -59,6 +59,7 @@ class SeoPackage
             'clean_days'                => (int) $this->modx->getOption('seopackage.clean_days', null, 30),
             'seo_fields'                => $this->getSeoFields(),
             'seo_fields_style'          => $this->modx->getOption('seopackage.seo_fields_style', null, 'bar'),
+            'seo_keywords_fields'       => explode(',', $this->modx->getOption('seopackage.seo_keywords_fields', null, 'longtitle,description,alias,ta')),
             'seo_title_format'          => $this->modx->getOption('seopackage.seo_title_format', null, '[[+title]] - [[++site_name]]'),
             'seo_description_format'    => $this->modx->getOption('seopackage.seo_description_format', null, '[[+description]]'),
             'preview_search_engine'     => $this->modx->getOption('seopackage.preview_search_engine', null, 'google'),

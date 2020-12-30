@@ -99,6 +99,11 @@
     font-size: 12px;
 }
 
+#modx-resource-content .x-form-element.x-field-seo-keyword-field .x-field-seo-keyword {
+    top: -48px;
+    right: 38px;
+}
+
 .x-field-seo-meta {
     padding: 6px 10px 10px;
     background-color: #fbfbfb;
