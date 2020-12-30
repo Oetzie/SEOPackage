@@ -200,7 +200,7 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
                 } else if (maxChars <= 0) {
                     current.setWidth('100%');
                 } else {
-                    current.setWidth(Math.round(chars * (maxChars / 100)) + '%');
+                    current.setWidth(Math.round(chars / (maxChars / 100)) + '%');
                 }
             }
         }
