@@ -37,7 +37,9 @@ $_lang['setting_seopackage.seo_fields_desc']                    = 'De velden die
 $_lang['setting_seopackage.seo_fields_style']                   = 'SEO velden stijl';
 $_lang['setting_seopackage.seo_fields_style_desc']              = 'De style van de SEO velden, dit kan \'bar\' of \'counter\' zijn. Standaard \'bar\'.';
 $_lang['setting_seopackage.seo_title_format']                   = 'SEO titel formaat';
-$_lang['setting_seopackage.seo_title_format_desc']              = 'De SEO title formaat, deze titel word in de \'head\' gebruikt. Standaard is \'[[*longtitle:default=`[[*pagetitle]]`]] - [[++site_name]]\'.';
+$_lang['setting_seopackage.seo_title_format_desc']              = 'De SEO title formaat, deze titel word in de \'head\' gebruikt. Standaard is \'[[+title]] - [[++site_name]]\'.';
+$_lang['setting_seopackage.seo_description_format']             = 'SEO omschrijving formaat';
+$_lang['setting_seopackage.seo_description_format_desc']        = 'De SEO omschrijving formaat, deze omschrijving word in de \'head\' gebruikt. Standaard is \'[[+description]]\'.';
 $_lang['setting_seopackage.preview_search_engine']              = 'Preview zoekmachine';
 $_lang['setting_seopackage.preview_search_engine_desc']         = 'De zoekmachine voor de zoekmachine voorbeeld. Dit kan "google" of "yandex" zijn, standaard is "google".';
 $_lang['setting_seopackage.seo_index']                          = 'Zoekmachines indexeren';
@@ -94,6 +96,8 @@ $_lang['seopackage.label_last_visit_desc']                      = '';
 $_lang['seopackage.label_clean_label']                          = 'Verwijder 404 pagina\'s ouder dan';
 $_lang['seopackage.label_clean_desc']                           = 'dagen.';
 
+$_lang['seopackage.resource_longtitle']                         = 'Zoekmachine titel';
+$_lang['seopackage.resource_description']                       = 'Zoekmachine omschrijving';
 $_lang['seopackage.resource_keywords']                          = 'Zoekmachine keyword(s)';
 $_lang['seopackage.resource_keywords_desc']                     = 'De zoekmachine keyword(s), meerdere keywords scheiden met een komma.';
 $_lang['seopackage.resource_index']                             = 'Zoekmachines mogen deze pagina indexeren';

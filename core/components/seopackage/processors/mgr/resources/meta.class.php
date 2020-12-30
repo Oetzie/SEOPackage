@@ -43,49 +43,54 @@ class SeoPackageResourcesMetaProcessor extends modProcessor
      */
     public function process()
     {
+        $this->modx->switchContext($this->getProperty('context_key', $this->modx->getOption('default_context')));
+
         $output = array_merge($this->getProperties(), [
             'domain'    => '',
             'secure'    => false,
             'favicon'   => '',
-            'title'     => $this->modx->seopackage->getSeoTitle($this->getProperties()),
-            'url'       => ''
+            'url'       => '',
+            'counters'  => []
         ]);
 
         $resource = $this->modx->newObject('modResource', $this->getProperties());
 
         if ($resource) {
-            $context = $this->modx->getObject('modContext', [
-                'key' => $this->getProperty('context_key')
-            ]);
+            $scheme     = $this->modx->getOption('link_tag_scheme');
+            $basePath   = '';
 
-            if ($context && $context->prepare()) {
-                $scheme     = $context->getOption('link_tag_scheme');
-                $baseUrl    = trim($context->getOption('base_url'), '/');
-                $basePath   = '';
+            $output['domain'] = trim(str_replace(['http://', 'https://'], '', $this->modx->getOption('site_url')), '/');
 
-                $output['domain'] = trim(str_replace(['http://', 'https://'], '', $context->getOption('site_url')), '/');
-
-                if ($scheme === 'http' || (int) $scheme === 0) {
-                    $output['secure'] = false;
-                } else if ($scheme === 'https' || (int) $scheme === 1) {
-                    $output['secure'] = true;
-                } else {
-                    $output['secure'] = strpos($context->getOption('site_url'), 'https') === 0;
-                }
-
-                if ((int) $context->getOption('friendly_urls') === 1) {
-                    if ((int) $context->getOption('site_start') !== (int) $this->getProperty('id')) {
-                        $basePath = $resource->getAliasPath($resource->get('alias'), $this->getProperties());
-                    }
-                } else {
-                    $basePath = $context->getOption('request_controller') . '?' . $context->getOption('request_param_id') . '=' . $this->getProperty('id');
-                }
-
-                $output['url'] = trim($baseUrl . '/' . $basePath, '/');
+            if ($scheme === 'http' || (int) $scheme === 0) {
+                $output['secure'] = false;
+            } else if ($scheme === 'https' || (int) $scheme === 1) {
+                $output['secure'] = true;
+            } else {
+                $output['secure'] = strpos($this->modx->getOption('site_url'), 'https') === 0;
             }
+
+            if ((int) $this->modx->getOption('friendly_urls') === 1) {
+                if ((int) $this->modx->getOption('site_start') !== (int) $this->getProperty('id')) {
+                    $basePath = $resource->getAliasPath($resource->get('alias'), $this->getProperties());
+                }
+            } else {
+                $basePath = $this->modx->getOption('request_controller') . '?' . $this->modx->getOption('request_param_id') . '=' . $this->getProperty('id');
+            }
+
+            $output['url'] = trim($basePath, '/');
         }
 
-        $output['favicon'] = '//www.google.com/s2/favicons?domain=' . $output['domain'];
+        $title                  = $this->modx->seopackage->getSeoMeta('title', $this->getProperties());
+        $description            = $this->modx->seopackage->getSeoMeta('description', $this->getProperties());
+
+        $output['title']        = $title['processed'];
+        $output['description']  = $description['processed'];
+        $output['favicon']      = '//www.google.com/s2/favicons?domain=' . $output['domain'];
+
+        $output['counters']     = [
+            'longtitle'             => strlen($title['unprocessed']),
+            'description'           => strlen($description['unprocessed'])
+        ];
 
         if (empty($output['description'])) {
             $output['description'] = $this->modx->lexicon('seopackage.seo_preview_desc');
@@ -94,7 +99,7 @@ class SeoPackageResourcesMetaProcessor extends modProcessor
         if (isset($this->modx->seopackage->config['seo_fields'])) {
             foreach ((array) $this->modx->seopackage->config['seo_fields'] as $field => $property) {
                 if (isset($output[$field])) {
-                    if (strlen($output[$field]) >= (int) $property['max']) {
+                    if (strlen($output[$field]) > (int) $property['max']) {
                         $output[$field] = substr($output[$field], 0, (int) $property['max']) . '...';
                     }
                 }

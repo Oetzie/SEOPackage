@@ -37,7 +37,9 @@ $_lang['setting_seopackage.seo_fields_desc']                    = 'The fields to
 $_lang['setting_seopackage.seo_fields_style']                   = 'SEO fields style';
 $_lang['setting_seopackage.seo_fields_style_desc']              = 'The style of the SEO fields, this can be \'bar\' or \'counter\'. Default is \'bar\'.';
 $_lang['setting_seopackage.seo_title_format']                   = 'SEO title format';
-$_lang['setting_seopackage.seo_title_format_desc']              = 'The format of the SEO title,this title will be used in the \'head\'. Default is \'[[*longtitle:default=`[[*pagetitle]]`]] - [[++site_name]]\'.';
+$_lang['setting_seopackage.seo_title_format_desc']              = 'The format of the SEO title, this title will be used in the \'head\'. Default is \'[[+title]] - [[++site_name]]\'.';
+$_lang['setting_seopackage.seo_description_format']             = 'SEO description format';
+$_lang['setting_seopackage.seo_description_format_desc']        = 'The format of the SEO description, this description will be used in the \'head\'. Default is \'[[++description]]\'.';
 $_lang['setting_seopackage.preview_search_engine']              = 'Preview searchengine';
 $_lang['setting_seopackage.preview_search_engine_desc']         = 'The searchengine for the searchengine preview. This can be "google" or "yandex", default is "google".';
 $_lang['setting_seopackage.seo_index']                          = 'Index searchengine';
@@ -94,6 +96,8 @@ $_lang['seopackage.label_last_visit_desc']                      = '';
 $_lang['seopackage.label_clean_label']                          = 'Delete 404 pages older then';
 $_lang['seopackage.label_clean_desc']                           = 'days.';
 
+$_lang['seopackage.resource_longtitle']                         = 'Searchengine title';
+$_lang['seopackage.resource_description']                       = 'Searchengine description';
 $_lang['seopackage.resource_keywords']                          = 'Searchengine keyword(s)';
 $_lang['seopackage.resource_keywords_desc']                     = 'The searchengine keyword(s), separate multiple keywords with a comma.';
 $_lang['seopackage.resource_index']                             = 'Searchengines are allowed to index this page';

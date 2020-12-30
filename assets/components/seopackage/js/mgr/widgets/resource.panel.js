@@ -29,7 +29,7 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
         var panel = Ext.getCmp(this.renderTo);
 
         if (panel) {
-            panel.add({
+            panel.insert(3, {
                 xtype       : 'textfield',
                 fieldLabel  : _('seopackage.resource_keywords'),
                 description : '<b>[[*keywords]]</b><br />' + _('seopackage.resource_keywords_desc'),
@@ -38,7 +38,9 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
                 value       : SeoPackage.record.keywords,
                 id          : 'seopackage-panel-keywords',
                 enableKeyEvents : true
-            }, {
+            });
+
+            panel.add({
                 id          : 'seopackage-panel-meta',
                 fieldLabel  : _('seopackage.seo_preview', { type : SeoPackage.config.preview_search_engine.charAt(0).toUpperCase() + SeoPackage.config.preview_search_engine.slice(1) }),
                 type        : SeoPackage.config.preview_search_engine,
@@ -66,6 +68,8 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
                 var field = Ext.getCmp('modx-resource-' + key);
 
                 if (field) {
+                    field.label.update(_('seopackage.resource_' + key));
+
                     field.counter = value;
 
                     if (SeoPackage.config.seo_fields_style === 'bar') {
@@ -149,26 +153,38 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
             panel.doLayout();
         }
     },
-    onHandleCounter: function(field) {
-        var chars   = field.getValue().length;
-        var state   = 'green';
-        var counter = Ext.get(field.container.query('.x-field-seo-counter')[0]);
-        var bar     = Ext.get(field.container.query('.x-field-seo-bar')[0]);
-
-        if (chars < parseInt(field.counter.min)) {
-            state = 'orange';
-        } else if (chars > parseInt(field.counter.max)) {
-            state = 'red';
+    onRefreshCounter: function (field, limit) {
+        if (field.counter) {
+            field.counter.limit = limit;
         }
 
-        if (counter) {
-            var current = Ext.get(counter.query('.x-field-seo-counter-current')[0]);
+        this.onHandleCounter(field);
+    },
+    onHandleCounter: function(field) {
+        var chars       = field.getValue().length;
+        var minChars    = parseInt(field.counter.min);
+        var maxChars    = parseInt(field.counter.max);
+        var state       = 'green';
+        var bar         = Ext.get(field.container.query('.x-field-seo-bar')[0]);
+        var counter     = Ext.get(field.container.query('.x-field-seo-counter')[0]);
 
-            counter.removeClass('orange').removeClass('green').removeClass('red').addClass(state);
+        if (field.counter.limit) {
+            minChars -= field.counter.limit;
+            maxChars -= field.counter.limit;
 
-            if (current) {
-                current.dom.innerHTML = chars;
+            if (minChars < 0) {
+                minChars = 0;
             }
+
+            if (maxChars < 0) {
+                maxChars = 0;
+            }
+        }
+
+        if (chars < minChars) {
+            state = 'orange';
+        } else if (chars > maxChars) {
+            state = 'red';
         }
 
         if (bar) {
@@ -179,7 +195,28 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
             if (current) {
                 current.dom.innerHTML = chars;
 
-                current.setWidth(Math.ceil(chars / (parseInt(field.counter.max) / 100)) + '%');
+                if (chars <= 0) {
+                    current.setWidth('0%');
+                } else if (maxChars <= 0) {
+                    current.setWidth('100%');
+                } else {
+                    current.setWidth(Math.round(chars * (maxChars / 100)) + '%');
+                }
+            }
+        }
+
+        if (counter) {
+            var current = Ext.get(counter.query('.x-field-seo-counter-current')[0]);
+            var total   = Ext.get(counter.query('.x-field-seo-counter-total')[0]);
+
+            counter.removeClass('orange').removeClass('green').removeClass('red').addClass(state);
+
+            if (current) {
+                current.dom.innerHTML = chars;
+            }
+
+            if (total) {
+                total.dom.innerHTML = maxChars;
             }
         }
     },
@@ -219,7 +256,7 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
         var panel = Ext.getCmp('modx-panel-resource');
 
         if (panel) {
-            setTimeout(function() {
+            setTimeout((function() {
                 var record = panel.getForm().getValues();
 
                 MODx.Ajax.request({
@@ -283,12 +320,20 @@ Ext.extend(SeoPackage.panel.Meta, MODx.Panel, {
                                         }
                                     }
                                 });
+
+                                Ext.iterate(data.object.counters, (function(key, length) {
+                                    var field = Ext.getCmp('modx-resource-' + key);
+
+                                    if (field) {
+                                        this.onRefreshCounter(field, length);
+                                    }
+                                }).bind(this));
                             },
                             scope           : this
                         }
                     }
                 });
-            }, 500);
+            }).bind(this), 100);
         }
     }
 });

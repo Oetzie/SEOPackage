@@ -34,39 +34,40 @@ class SeoPackage
         $assetsPath = $this->modx->getOption('seopackage.assets_path', $config, $this->modx->getOption('assets_path') . 'components/seopackage/');
 
         $this->config = array_merge([
-            'namespace'             => 'seopackage',
-            'lexicons'              => ['seopackage:default'],
-            'base_path'             => $corePath,
-            'core_path'             => $corePath,
-            'model_path'            => $corePath . 'model/',
-            'processors_path'       => $corePath . 'processors/',
-            'elements_path'         => $corePath . 'elements/',
-            'chunks_path'           => $corePath . 'elements/chunks/',
-            'plugins_path'          => $corePath . 'elements/plugins/',
-            'snippets_path'         => $corePath . 'elements/snippets/',
-            'templates_path'        => $corePath . 'templates/',
-            'assets_path'           => $assetsPath,
-            'js_url'                => $assetsUrl . 'js/',
-            'css_url'               => $assetsUrl . 'css/',
-            'assets_url'            => $assetsUrl,
-            'connector_url'         => $assetsUrl . 'connector.php',
-            'version'               => '1.0.0',
-            'branding_url'          => $this->modx->getOption('seopackage.branding_url', null, ''),
-            'branding_help_url'     => $this->modx->getOption('seopackage.branding_url_help', null, ''),
-            'context'               => $this->getContexts(),
-            'exclude_contexts'      => array_merge(['mgr'], explode(',', $this->modx->getOption('seopackage.exclude_contexts', null, ''))),
-            'migrate'               => (bool) $this->modx->getOption('seopackage.migrate', null, false),
-            'clean_days'            => (int) $this->modx->getOption('seopackage.clean_days', null, 30),
-            'seo_fields'            => $this->getSeoFields(),
-            'seo_fields_style'      => $this->modx->getOption('seopackage.seo_fields_style', null, 'bar'),
-            'seo_title_format'      => $this->modx->getOption('seopackage.seo_title_format', null, '[[+title]] - [[+site_name]]'),
-            'preview_search_engine' => $this->modx->getOption('seopackage.preview_search_engine', null, 'google'),
-            'seo_index'             => (bool) $this->modx->getOption('seopackage.seo_index', null, true),
-            'seo_follow'            => (bool) $this->modx->getOption('seopackage.seo_follow', null, true),
-            'seo_searchable'        => (bool) $this->modx->getOption('seopackage.seo_searchable', null, true),
-            'seo_sitemap'           => (bool) $this->modx->getOption('seopackage.seo_sitemap', null, true),
-            'seo_sitemap_prio'      => $this->modx->getOption('seopackage.seo_sitemap_prio', null, '0.5'),
-            'seo_sitemap_freq'      => $this->modx->getOption('seopackage.seo_sitemap_freq', null, 'weekly'),
+            'namespace'                 => 'seopackage',
+            'lexicons'                  => ['seopackage:default'],
+            'base_path'                 => $corePath,
+            'core_path'                 => $corePath,
+            'model_path'                => $corePath . 'model/',
+            'processors_path'           => $corePath . 'processors/',
+            'elements_path'             => $corePath . 'elements/',
+            'chunks_path'               => $corePath . 'elements/chunks/',
+            'plugins_path'              => $corePath . 'elements/plugins/',
+            'snippets_path'             => $corePath . 'elements/snippets/',
+            'templates_path'            => $corePath . 'templates/',
+            'assets_path'               => $assetsPath,
+            'js_url'                    => $assetsUrl . 'js/',
+            'css_url'                   => $assetsUrl . 'css/',
+            'assets_url'                => $assetsUrl,
+            'connector_url'             => $assetsUrl . 'connector.php',
+            'version'                   => '1.1.0',
+            'branding_url'              => $this->modx->getOption('seopackage.branding_url', null, ''),
+            'branding_help_url'         => $this->modx->getOption('seopackage.branding_url_help', null, ''),
+            'context'                   => $this->getContexts(),
+            'exclude_contexts'          => array_merge(['mgr'], explode(',', $this->modx->getOption('seopackage.exclude_contexts', null, ''))),
+            'migrate'                   => (bool) $this->modx->getOption('seopackage.migrate', null, false),
+            'clean_days'                => (int) $this->modx->getOption('seopackage.clean_days', null, 30),
+            'seo_fields'                => $this->getSeoFields(),
+            'seo_fields_style'          => $this->modx->getOption('seopackage.seo_fields_style', null, 'bar'),
+            'seo_title_format'          => $this->modx->getOption('seopackage.seo_title_format', null, '[[+title]] - [[++site_name]]'),
+            'seo_description_format'    => $this->modx->getOption('seopackage.seo_description_format', null, '[[+description]]'),
+            'preview_search_engine'     => $this->modx->getOption('seopackage.preview_search_engine', null, 'google'),
+            'seo_index'                 => (bool) $this->modx->getOption('seopackage.seo_index', null, true),
+            'seo_follow'                => (bool) $this->modx->getOption('seopackage.seo_follow', null, true),
+            'seo_searchable'            => (bool) $this->modx->getOption('seopackage.seo_searchable', null, true),
+            'seo_sitemap'               => (bool) $this->modx->getOption('seopackage.seo_sitemap', null, true),
+            'seo_sitemap_prio'          => $this->modx->getOption('seopackage.seo_sitemap_prio', null, '0.5'),
+            'seo_sitemap_freq'          => $this->modx->getOption('seopackage.seo_sitemap_freq', null, 'weekly'),
         ], $config);
 
         $this->modx->addPackage('seopackage', $this->config['model_path']);
@@ -196,23 +197,63 @@ class SeoPackage
 
     /**
      * @access public.
+     * @param String $type.
      * @param Array $properties.
-     * @return String.
+     * @return Array.
      */
-    public function getSeoTitle(array $properties = [])
+    public function getSeoMeta($type, array $properties = [])
     {
-        $title = $this->config['seo_title_format'];
+        $value = '';
 
-        if (!$this->modx->resource) {
-            $this->modx->resource = $this->modx->newObject('modResource', $properties);
+        if ($type === 'title') {
+            $value = $this->config['seo_title_format'];
+        } else if ($type === 'description') {
+            $value = $this->config['seo_description_format'];
         }
 
-        $maxIterations = (int) $this->modx->getOption('parser_max_iterations', null, 10);
+        $processedValue     = $value;
+        $unProcessedValue   = $value;
 
-        $this->modx->parser->processElementTags('', $title, true, false, '[[', ']]', array(), $maxIterations);
-        $this->modx->parser->processElementTags('', $title, true, true, '[[', ']]', array(), $maxIterations);
+        if (!empty($value)) {
+            if ($this->modx->resource) {
+                $resource = $this->modx->resource;
+            } else {
+                $resource = $this->modx->newObject('modResource', $properties);
+            }
 
-        return $title;
+            if ($resource) {
+                $data = [
+                    'title'         => $resource->get('longtitle') ?: $resource->get('pagetitle'),
+                    'pagetitle'     => $resource->get('pagetitle'),
+                    'longtitle'     => $resource->get('longtitle'),
+                    'alias'         => $resource->get('alias'),
+                    'menutitle'     => $resource->get('menutitle'),
+                    'introtext'     => $resource->get('introtext'),
+                    'description'   => $resource->get('description')
+                ];
+
+                $parser = $this->modx->newObject('modChunk', [
+                    'name' => $this->config['namespace'] . uniqid()
+                ]);
+
+                if ($parser) {
+                    $parser->setCacheable(false);
+
+                    $processedValue     = $parser->process($data, $processedValue);
+
+                    if (isset($data[$type])) {
+                        $data[$type] = '';
+                    }
+
+                    $unProcessedValue   = $parser->process($data, $unProcessedValue);
+                }
+            }
+        }
+
+        return [
+            'processed'     => $processedValue,
+            'unprocessed'   => $unProcessedValue
+        ];
     }
 
     /**

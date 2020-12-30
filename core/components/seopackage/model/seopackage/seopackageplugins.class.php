@@ -44,12 +44,14 @@ class SeoPackagePlugins extends SeoPackage
             }
 
             $this->modx->setPlaceholders(array_merge($this->getSeoDefaults($data), [
-                'title'         => $this->getSeoTitle(),
+                'title'         => $this->getSeoMeta('title')['processed'],
+                'description'   => $this->getSeoMeta('description')['processed'],
                 'robots'        => implode(',', $data['robots']),
                 'searchable'    => $this->modx->resource->get('searchable')
             ]), 'seopackage.');
         }
     }
+
     /**
      * @access public.
      * @param Array $properties.
