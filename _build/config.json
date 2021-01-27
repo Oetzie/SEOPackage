@@ -3,7 +3,7 @@
     "lowCaseName": "seopackage",
     "description": "A SEO package solution for MODX Revolution.",
     "author": "Oetzie.nl",
-    "version": "1.1.0-pl",
+    "version": "1.1.1-pl",
     "package":{
         "menus": [{
             "text": "seopackage",
@@ -64,12 +64,21 @@
             "value": 0,
             "area": "seopackage"
         },{
+            "type": "combo-boolean",
+            "key": "404_page_replace_params",
+            "value": 1,
+            "area": "seopackage"
+        },{
             "key": "preview_search_engine",
             "value": "google",
             "area": "seopackage"
         },{
             "key": "seo_fields",
             "value": "{\"google\": {\"longtitle\": \"50|60\", \"description\": \"50|160\"}, \"yandex\": {\"longtitle\": \"50|60\", \"description\": \"50|160\"}}",
+            "area": "seopackage"
+        },{
+            "key": "seo_keywords_fields",
+            "value": "longtitle,description,alias,ta",
             "area": "seopackage"
         },{
             "key": "seo_fields_style",

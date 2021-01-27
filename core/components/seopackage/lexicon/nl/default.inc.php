@@ -56,6 +56,8 @@ $_lang['setting_seopackage.seo_sitemap_prio']                   = 'Sitemap prior
 $_lang['setting_seopackage.seo_sitemap_prio_desc']              = 'De standaard sitemap prioriteit. Standaard is "0.5".';
 $_lang['setting_seopackage.seo_sitemap_freq']                   = 'Sitemap update frequentie';
 $_lang['setting_seopackage.seo_sitemap_freq_desc']              = 'De standaard sitemap update frequentie. Standaard is "weekly".';
+$_lang['setting_seopackage.404_page_replace_params']            = 'Vervang 404 pagina URL params';
+$_lang['setting_seopackage.404_page_replace_params_desc']       = 'Indien ja, zullen de 404 pagina URL params vervangen worden voor een wildcard (%). Standaard is "Ja".';
 
 $_lang['seopackage.redirect']                                   = 'URL verwijzing';
 $_lang['seopackage.redirects']                                  = 'URL verwijzingen';

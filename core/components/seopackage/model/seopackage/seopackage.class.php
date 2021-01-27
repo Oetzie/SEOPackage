@@ -50,7 +50,7 @@ class SeoPackage
             'css_url'                   => $assetsUrl . 'css/',
             'assets_url'                => $assetsUrl,
             'connector_url'             => $assetsUrl . 'connector.php',
-            'version'                   => '1.1.0',
+            'version'                   => '1.1.1',
             'branding_url'              => $this->modx->getOption('seopackage.branding_url', null, ''),
             'branding_help_url'         => $this->modx->getOption('seopackage.branding_url_help', null, ''),
             'context'                   => $this->getContexts(),
@@ -69,6 +69,7 @@ class SeoPackage
             'seo_sitemap'               => (bool) $this->modx->getOption('seopackage.seo_sitemap', null, true),
             'seo_sitemap_prio'          => $this->modx->getOption('seopackage.seo_sitemap_prio', null, '0.5'),
             'seo_sitemap_freq'          => $this->modx->getOption('seopackage.seo_sitemap_freq', null, 'weekly'),
+            '404_page_replace_params'   => (bool) $this->modx->getOption('seopackage.404_page_replace_params', null, true)
         ], $config);
 
         $this->modx->addPackage('seopackage', $this->config['model_path']);
@@ -252,8 +253,8 @@ class SeoPackage
         }
 
         return [
-            'processed'     => $processedValue,
-            'unprocessed'   => $unProcessedValue
+            'processed'     => htmlentities($processedValue),
+            'unprocessed'   => htmlentities($unProcessedValue)
         ];
     }
 

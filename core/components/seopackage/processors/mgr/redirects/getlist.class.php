@@ -110,6 +110,10 @@ class SeoPackageRedirectsGetListProcessor extends modObjectGetListProcessor
             'new_url_formatted' => $object->getNewUrl()
         ]);
 
+        if ($this->getProperty('type') === 'error') {
+            $array['active'] = 1;
+        }
+
         if (in_array($object->get('last_visit'), ['-001-11-30 00:00:00', '-1-11-30 00:00:00', '0000-00-00 00:00:00', null], true)) {
             $array['last_visit'] = '';
         } else {

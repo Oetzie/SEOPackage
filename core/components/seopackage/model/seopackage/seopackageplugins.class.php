@@ -167,7 +167,7 @@ class SeoPackagePlugins extends SeoPackage
 
                         if ($location !== $this->modx->resourceIdentifier) {
                             if ($baseUrl !== '') {
-                                if (0 === ($pos = strpos($location, $baseUrl))) {
+                                if (strpos($location, $baseUrl) === 0) {
                                     $location = substr($location, strlen($baseUrl), strlen($location));
                                 }
                             }
@@ -182,6 +182,10 @@ class SeoPackagePlugins extends SeoPackage
                             }
                         }
                     }
+                }
+
+                if ($this->getOption('404_page_replace_params')) {
+                    $request = preg_replace('~(\?|&)(.*?)=[^&]*~', '$1$2=%', $request);
                 }
 
                 $notFound = $this->modx->getObject('SeoPackageRedirect', [
