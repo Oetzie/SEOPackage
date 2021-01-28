@@ -38,18 +38,20 @@ $xpdo_meta_map['SeoPackageRedirect'] = [
             'null'          => true
         ],
         'old_url'       => [
-            'dbtype'        => 'text',
-            'precision'     => '2048',
+            'dbtype'        => 'varchar',
+            'precision'     => '2000',
             'phptype'       => 'string',
             'null'          => true,
-            'default'       => ''
+            'default'       => '',
+            'index'         => 'index'
         ],
         'new_url'       => [
-            'dbtype'        => 'text',
-            'precision'     => '2048',
+            'dbtype'        => 'varchar',
+            'precision'     => '2000',
             'phptype'       => 'string',
             'null'          => true,
-            'default'       => ''
+            'default'       => '',
+            'index'         => 'index'
         ],
         'redirect_type' => [
             'dbtype'        => 'varchar',
@@ -76,7 +78,8 @@ $xpdo_meta_map['SeoPackageRedirect'] = [
             'precision'     => '1',
             'phptype'       => 'integer',
             'null'          => false,
-            'default'       => 1
+            'default'       => 1,
+            'index'         => 'index'
         ],
         'editedon'      => [
             'dbtype'        => 'timestamp',
@@ -92,6 +95,45 @@ $xpdo_meta_map['SeoPackageRedirect'] = [
             'unique'        => true,
             'columns'       => [
                 'id'            => [
+                    'collation'     => 'A',
+                    'null'          => false
+                ]
+            ]
+        ],
+        'old_url'       => [
+            'alias'         => 'old_url',
+            'primary'       => false,
+            'unique'        => false,
+            'type'          => 'BTREE',
+            'columns'       => [
+                'old_url'       => [
+                    'length'        => '767',
+                    'collation'     => 'A',
+                    'null'          => false
+                ]
+            ]
+        ],
+        'new_url'       => [
+            'alias'         => 'new_url',
+            'primary'       => false,
+            'unique'        => false,
+            'type'          => 'BTREE',
+            'columns'       => [
+                'old_url'       => [
+                    'length'        => '767',
+                    'collation'     => 'A',
+                    'null'          => false
+                ]
+            ]
+        ],
+        'active'        => [
+            'alias'         => 'active',
+            'primary'       => false,
+            'unique'        => false,
+            'type'          => 'BTREE',
+            'columns'       => [
+                'active'        => [
+                    'length'        => '767',
                     'collation'     => 'A',
                     'null'          => false
                 ]
