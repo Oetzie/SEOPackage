@@ -89,7 +89,7 @@ SeoPackage.grid.Errors = function(config) {
         url         : SeoPackage.config.connector_url,
         baseParams  : {
             action      : 'mgr/redirects/getlist',
-            context     : MODx.request.context || MODx.config.default_context,
+            context     : MODx.request.context || '',
             type        : 'error'
         },
         fields      : ['id', 'context', 'old_url', 'new_url', 'redirect_type', 'visits', 'last_visit', 'active', 'editedon', 'old_url_formatted', 'new_url_formatted'],
@@ -221,7 +221,7 @@ Ext.extend(SeoPackage.grid.Errors, MODx.grid.Grid, {
             url         : SeoPackage.config.connector_url,
             params      : {
                 action      : 'mgr/redirects/reset',
-                context     : MODx.request.context || MODx.config.default_context,
+                context     : MODx.request.context || '',
                 type        : 'error'
             },
             listeners   : {
@@ -334,17 +334,12 @@ SeoPackage.window.UpdateError = function(config) {
             labelSeparator : '',
             hidden      : SeoPackage.config.context,
             items       : [{
-                xtype       : 'modx-combo-context',
+                xtype       : 'seopackage-combo-context',
                 fieldLabel  : _('seopackage.label_context'),
                 description : MODx.expandHelp ? '' : _('seopackage.label_context_desc'),
                 name        : 'context',
                 anchor      : '100%',
-                displayField : 'name',
-                value       : MODx.request.context || MODx.config.default_context,
-                baseParams  : {
-                    action      : 'context/getlist',
-                    exclude     : SeoPackage.config.exclude_contexts.join(',')
-                }
+                value       : MODx.request.context || ''
             }, {
                 xtype       : MODx.expandHelp ? 'label' : 'hidden',
                 html        : _('seopackage.label_context_desc'),
@@ -377,7 +372,7 @@ SeoPackage.window.CleanErrors = function(config) {
         }, {
             xtype       : 'hidden',
             name        : 'context',
-            value       : MODx.request.context || MODx.config.default_context
+            value       : MODx.request.context || ''
         }, {
             xtype       : 'modx-panel',
             items       : [{

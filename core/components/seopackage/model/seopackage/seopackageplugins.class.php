@@ -12,6 +12,82 @@ class SeoPackagePlugins extends SeoPackage
 {
     /**
      * @access public.
+     */
+    public function onHandleRequest()
+    {
+        if (!in_array($this->modx->context->get('key'), $this->getOption('exclude_contexts'), true)) {
+            $request = $this->getRequestUrl();
+
+            $ips = $this->modx->getIterator('SeoPackageIP', [
+                'context:IN'    => [$this->modx->context->get('key'), ''],
+                'type'          => $this->modx->getOption('site_status') ? 'deny' : 'allow',
+                'active'        => 1
+            ]);
+
+            foreach ($ips as $ip) {
+                $regex = preg_quote($ip->get('ip'));
+                $regex = str_replace(['%', '\?', '\^', '\$'], ['\d+', '?', '^', '$'], $regex);
+
+                if (!preg_match('/\^/si', $regex) && !preg_match('/\$/si', $regex)) {
+                    $regex = sprintf('/^%s$/si', $regex);
+                } else {
+                    $regex = sprintf('/%s/si', $regex);
+                }
+
+                if (preg_match($regex, $_SERVER['REMOTE_ADDR'])) {
+                    if ($ip->get('type') === 'allow') {
+                        $this->modx->setOption('site_status', true);
+                    } else {
+                        $this->modx->setOption('site_status', false);
+                        $this->modx->setOption('site_unavailable_message', $this->modx->lexicon('seopackage.access_denied'));
+                    }
+
+                    break;
+                }
+            }
+
+            if ($this->getOption('ip_auto_block')) {
+                foreach ($this->getOption('ip_auto_block_urls') as $url) {
+                    $regex = preg_quote(trim($url, '/'));
+                    $regex = str_replace(['%', '\^', '\$', '/'], ['(.+?)', '^', '$', '\/'], $regex);
+
+                    if (!preg_match('/\^/', $regex) && !preg_match('/\$/', $regex)) {
+                        $regex = sprintf('/^%s$/si', $regex);
+                    } else {
+                        $regex = sprintf('/%s/si', $regex);
+                    }
+
+                    if (preg_match($regex, $request)) {
+                        $ip = $this->modx->getObject('SeoPackageIP', [
+                            'ip' => $_SERVER['REMOTE_ADDR']
+                        ]);
+
+                        if (!$ip) {
+                            $ip = $this->modx->newObject('SeoPackageIP', [
+                                'ip' => $_SERVER['REMOTE_ADDR']
+                            ]);
+
+                            if ($ip) {
+                                $ip->fromArray([
+                                    'type'          => 'deny',
+                                    'description'   => 'Auto block IP number for visiting "' . $url . '".',
+                                    'useragent'     => $_SERVER['HTTP_USER_AGENT'],
+                                    'active'        => 1
+                                ]);
+
+                                if ($ip->save()) {
+                                    $this->modx->setOption('site_status', false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @access public.
      * @param Array $properties.
      */
     public function onLoadWebDocument(array $properties = [])
@@ -128,12 +204,7 @@ class SeoPackagePlugins extends SeoPackage
     public function onPageNotFound()
     {
         if (!in_array($this->modx->context->get('key'), $this->getOption('exclude_contexts'), true)) {
-            $request = urldecode(trim($_SERVER['REQUEST_URI'], '/'));
-            $baseUrl = ltrim(trim($this->modx->getOption('base_url', null, MODX_BASE_URL)), '/');
-
-            if ($baseUrl !== '/' && $baseUrl !== '') {
-                $request = trim(str_replace($baseUrl, '', $request), '/');
-            }
+            $request = $this->getRequestUrl();
 
             if ($request !== '') {
                 foreach (array_reverse($this->getRedirects()) as $redirect) {
@@ -179,6 +250,8 @@ class SeoPackagePlugins extends SeoPackage
                                 $this->modx->sendRedirect($location, [
                                     'responseCode' => $redirect->get('type')
                                 ]);
+
+                                break;
                             }
                         }
                     }
@@ -331,5 +404,35 @@ class SeoPackagePlugins extends SeoPackage
         }
 
         return true;
+    }
+
+    /**
+     * @access public.
+     * @param Array $properties.
+     */
+    public function onManagerLogin(array $properties = [])
+    {
+        if (isset($properties['user']) && $this->getOption('ip_save_manager')) {
+            $ip = $this->modx->getObject('SeoPackageIP', [
+                'ip' => $_SERVER['REMOTE_ADDR']
+            ]);
+
+            if (!$ip) {
+                $ip = $this->modx->newObject('SeoPackageIP', [
+                    'ip' => $_SERVER['REMOTE_ADDR']
+                ]);
+            }
+
+            if ($ip) {
+                $ip->fromArray([
+                    'type'          => 'allow',
+                    'description'   => 'Auto save IP number "' . $properties['user']->get('username') . '" for manager login.',
+                    'useragent'     => $_SERVER['HTTP_USER_AGENT'],
+                    'active'        => 1
+                ]);
+
+                $ip->save();
+            }
+        }
     }
 }

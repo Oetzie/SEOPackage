@@ -3,7 +3,7 @@
     "lowCaseName": "seopackage",
     "description": "A SEO package solution for MODX Revolution.",
     "author": "Oetzie.nl",
-    "version": "1.1.1-pl",
+    "version": "1.2.0-pl",
     "package":{
         "menus": [{
             "text": "seopackage",
@@ -17,11 +17,13 @@
                 "name": "SEOPackage",
                 "file": "seopackage.plugin.php",
                 "events": [
+                    "OnHandleRequest",
                     "OnLoadWebDocument",
                     "OnPageNotFound",
                     "OnDocFormSave",
                     "OnResourceSort",
-                    "OnDocFormRender"
+                    "OnDocFormRender",
+                    "OnManagerLogin"
                 ]
             }],
             "chunks": [{
@@ -120,6 +122,20 @@
             "key": "seo_description_format",
             "value": "[[+description]]",
             "area": "seopackage_seo"
+        },{
+            "type": "combo-boolean",
+            "key": "ip_auto_block",
+            "value": "1",
+            "area": "seopackage_ip"
+        },{
+            "type": "combo-boolean",
+            "key": "ip_save_manager",
+            "value": "1",
+            "area": "seopackage_ip"
+        },{
+            "key": "ip_auto_block_urls",
+            "value": "wp,wp-admin,wp-login.php,wordpress/wp-admin,old/wp-admin,.env",
+            "area": "seopackage_ip"
         }]
     },
     "build":{

@@ -30,7 +30,7 @@ class SeoPackageRedirectsGetListProcessor extends modObjectGetListProcessor
      * @access public.
      * @var String.
      */
-    public $defaultSortDirection = 'ASC';
+    public $defaultSortDirection = 'DESC';
 
     /**
      * @access public.
@@ -62,9 +62,13 @@ class SeoPackageRedirectsGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareQueryBeforeCount(xPDOQuery $criteria)
     {
-        $criteria->where([
-            'context:IN' => [$this->getProperty('context'), '']
-        ]);
+        $context = $this->getProperty('context');
+
+        if (!empty($context)) {
+            $criteria->where([
+                'context:IN' => [$context, '']
+            ]);
+        }
 
         if ($this->getProperty('type') === 'error') {
             $criteria->where([

@@ -6,21 +6,20 @@
  * Copyright 2020 by Oene Tjeerd de Bruin <modx@oetzie.nl>
  */
 
-$xpdo_meta_map['SeoPackageRedirect'] = [
+$xpdo_meta_map['SeoPackageIP'] = [
     'package'       => 'seopackage',
     'version'       => '1.0',
-    'table'         => 'seopackage_redirect',
+    'table'         => 'seopackage_ip',
     'extends'       => 'xPDOSimpleObject',
     'fields'        => [
         'id'            => null,
         'context'       => null,
-        'old_url'       => null,
-        'new_url'       => null,
-        'redirect_type' => null,
-        'visits'        => null,
-        'last_visit'    => null,
+        'type'          => null,
+        'ip'            => null,
+        'useragent'     => null,
+        'description'   => null,
         'active'        => null,
-        'editedon'      => null
+        'editedon'      => null,
     ],
     'fieldMeta'     => [
         'id'            => [
@@ -38,41 +37,32 @@ $xpdo_meta_map['SeoPackageRedirect'] = [
             'null'          => true,
             'default'       => ''
         ],
-        'old_url'       => [
+        'type'          => [
             'dbtype'        => 'varchar',
-            'precision'     => '2000',
+            'precision'     => '10',
             'phptype'       => 'string',
             'null'          => true,
-            'default'       => '',
-            'index'         => 'index'
+            'default'       => null
         ],
-        'new_url'       => [
+        'ip'            => [
             'dbtype'        => 'varchar',
-            'precision'     => '2000',
+            'precision'     => '20',
+            'phptype'       => 'string',
+            'null'          => false
+        ],
+        'useragent'     => [
+            'dbtype'        => 'varchar',
+            'precision'     => '255',
             'phptype'       => 'string',
             'null'          => true,
-            'default'       => '',
-            'index'         => 'index'
+            'default'       => null
         ],
-        'redirect_type' => [
+        'description'   => [
             'dbtype'        => 'varchar',
-            'precision'     => '75',
+            'precision'     => '255',
             'phptype'       => 'string',
-            'null'          => false,
-            'default'       => 'HTTP/1.1 301 Moved Permanently'
-        ],
-        'visits'        => [
-            'dbtype'        => 'int',
-            'precision'     => '11',
-            'phptype'       => 'integer',
-            'null'          => false,
-            'default'       => 0
-        ],
-        'last_visit'    => [
-            'dbtype'        => 'timestamp',
-            'phptype'       => 'timestamp',
-            'null'          => false,
-            'default'       => '0000-00-00 00:00:00'
+            'null'          => true,
+            'default'       => null
         ],
         'active'        => [
             'dbtype'        => 'int',
@@ -101,26 +91,13 @@ $xpdo_meta_map['SeoPackageRedirect'] = [
                 ]
             ]
         ],
-        'old_url'       => [
-            'alias'         => 'old_url',
+        'ip'            => [
+            'alias'         => 'active',
             'primary'       => false,
             'unique'        => false,
             'type'          => 'BTREE',
             'columns'       => [
-                'old_url'       => [
-                    'length'        => '767',
-                    'collation'     => 'A',
-                    'null'          => false
-                ]
-            ]
-        ],
-        'new_url'       => [
-            'alias'         => 'new_url',
-            'primary'       => false,
-            'unique'        => false,
-            'type'          => 'BTREE',
-            'columns'       => [
-                'old_url'       => [
+                'active'        => [
                     'length'        => '767',
                     'collation'     => 'A',
                     'null'          => false

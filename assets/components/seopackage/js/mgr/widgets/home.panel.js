@@ -33,6 +33,17 @@ SeoPackage.panel.Home = function(config) {
                     preventRender   : true,
                     refreshGrid     : 'seopackage-grid-errors'
                 }]
+            }, {
+                layout      : 'form',
+                title       : _('seopackage.ips'),
+                items       : [{
+                    html            : '<p>' + _('seopackage.ips_desc') + '</p>',
+                    bodyCssClass    : 'panel-desc'
+                }, {
+                    xtype           : 'seopackage-grid-ips',
+                    cls             : 'main-wrapper',
+                    preventRender   : true
+                }]
             }]
         }]
     });

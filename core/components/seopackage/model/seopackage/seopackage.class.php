@@ -50,7 +50,7 @@ class SeoPackage
             'css_url'                   => $assetsUrl . 'css/',
             'assets_url'                => $assetsUrl,
             'connector_url'             => $assetsUrl . 'connector.php',
-            'version'                   => '1.1.1',
+            'version'                   => '1.2.0',
             'branding_url'              => $this->modx->getOption('seopackage.branding_url', null, ''),
             'branding_help_url'         => $this->modx->getOption('seopackage.branding_url_help', null, ''),
             'context'                   => $this->getContexts(),
@@ -69,7 +69,10 @@ class SeoPackage
             'seo_sitemap'               => (bool) $this->modx->getOption('seopackage.seo_sitemap', null, true),
             'seo_sitemap_prio'          => $this->modx->getOption('seopackage.seo_sitemap_prio', null, '0.5'),
             'seo_sitemap_freq'          => $this->modx->getOption('seopackage.seo_sitemap_freq', null, 'weekly'),
-            '404_page_replace_params'   => (bool) $this->modx->getOption('seopackage.404_page_replace_params', null, true)
+            '404_page_replace_params'   => (bool) $this->modx->getOption('seopackage.404_page_replace_params', null, true),
+            'ip_save_manager'           => (bool) $this->modx->getOption('seopackage.ip_save_manager', null, true),
+            'ip_auto_block'             => (bool) $this->modx->getOption('seopackage.ip_auto_block', null, true),
+            'ip_auto_block_urls'        => explode(',', $this->modx->getOption('seopackage.ip_auto_block_urls', null, ''))
         ], $config);
 
         $this->modx->addPackage('seopackage', $this->config['model_path']);
@@ -272,5 +275,21 @@ class SeoPackage
         }
 
         return $data;
+    }
+
+    /**
+     * @access public.
+     * @return String.
+     */
+    public function getRequestUrl()
+    {
+        $request = urldecode(trim($_SERVER['REQUEST_URI'], '/'));
+        $baseUrl = ltrim(trim($this->modx->getOption('base_url', null, MODX_BASE_URL)), '/');
+
+        if ($baseUrl !== '/' && $baseUrl !== '') {
+            $request = trim(str_replace($baseUrl, '', $request), '/');
+        }
+
+        return strtolower($request);
     }
 }

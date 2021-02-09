@@ -11,6 +11,7 @@ $_lang['seopackage.desc']                                       = 'Change or cre
 
 $_lang['area_seopackage']                                       = 'Searchengine optimalisation';
 $_lang['area_seopackage_seo']                                   = 'Searchengine optimalisation (SEO)';
+$_lang['area_seopackage_ip']                                    = 'Searchengine optimalisation (IP exceptions)';
 
 $_lang['setting_seopackage.branding_url']                       = 'Branding';
 $_lang['setting_seopackage.branding_url_desc']                  = 'The URL of the branding button, if the URL is empty the branding button won\'t be shown.';
@@ -58,10 +59,16 @@ $_lang['setting_seopackage.seo_sitemap_freq']                   = 'Sitemap updat
 $_lang['setting_seopackage.seo_sitemap_freq_desc']              = 'The default sitemap update frequency. Default is "weekly".';
 $_lang['setting_seopackage.404_page_replace_params']            = 'Replace 404 page URL params';
 $_lang['setting_seopackage.404_page_replace_params_desc']       = 'If yes, the 404 page URL params will be replaced for a wildcard (%). Default is "Yes".';
+$_lang['setting_seopackage.ip_save_manager']                    = 'Save manager login IP number';
+$_lang['setting_seopackage.ip_save_manager_desc']               = 'If yes, the IP number will be saved so that it can always access the website when the site status is offline. Default is "Ja".';
+$_lang['setting_seopackage.ip_auto_block']                      = 'Deny IP number';
+$_lang['setting_seopackage.ip_auto_block_desc']                 = 'If yes, the IP number will be saved and denied if it tries to visit an unauthorized URL. Default is "Ja".';
+$_lang['setting_seopackage.ip_auto_block_urls']                 = 'Deny IP number URLs';
+$_lang['setting_seopackage.ip_auto_block_urls_desc']            = 'The URLs through which the IP number is saved and denied. Separate multiple URLs with a comma.';
 
 $_lang['seopackage.redirect']                                   = 'URL redirect';
 $_lang['seopackage.redirects']                                  = 'URL redirects';
-$_lang['seopackage.redirects_desc']                             = 'Manage here all URL redirects. An URL is meant to redirect old pages to the new pages, for example links from other websites to your site.';
+$_lang['seopackage.redirects_desc']                             = 'Manage here all URL redirects. An URL is meant to redirect old pages to the new pages, for example links from other websites to your site. It is possible to use wildcards. For a wildcard in the old URL use % (use $NUMBER_WILDCARD to use the wildcard in the new URL), use a ^ to start an IP sequence (e.g. ^ 172.0.) Or use $ to end an IP sequence (e.g. .0.1 $).';
 $_lang['seopackage.redirect_create']                            = 'Create new URL redirect';
 $_lang['seopackage.redirect_update']                            = 'Update URL redirect';
 $_lang['seopackage.redirect_remove']                            = 'Delete URL redirect';
@@ -77,13 +84,21 @@ $_lang['seopackage.error_remove']                               = 'Delete 404 pa
 $_lang['seopackage.error_remove_confirm']                       = 'Are you sure you want to delete this 404 page? This can be bad for your SEO.';
 $_lang['seopackage.errors_clean']                               = 'Clean 404 pages';
 $_lang['seopackage.errors_clean_confirm']                       = 'Are you sure you want to clean up all 404 pages?';
-$_lang['seopackage.errors_reset']                               = 'Delete all 40 pages';
+$_lang['seopackage.errors_reset']                               = 'Delete all 404 pages';
 $_lang['seopackage.errors_reset_confirm']                       = 'Are you sure you want to delete all 404 pages?';
+
+$_lang['seopackage.ip']                                         = 'IP exception';
+$_lang['seopackage.ips']                                        = 'IP exceptions';
+$_lang['seopackage.ips_desc']                                   = 'Manage here all your IP exceptions. An IP exception is intended to grant or deny a visitor access to the website on the basis of the IP number (if the website is offline, for example). It is possible to use wildcards in the IP exception. For a wildcard in the IP number use%, use a ^ to start an IP sequence (eg ^ 172.0.) Or use $ to end an IP sequence (eg .0.1 $).';
+$_lang['seopackage.ip_create']                                  = 'Create new IP exception';
+$_lang['seopackage.ip_update']                                  = 'Update IP exception';
+$_lang['seopackage.ip_remove']                                  = 'Delete IP exception';
+$_lang['seopackage.ip_remove_confirm']                          = 'Are you sure you want to delete this IP exception?';
 
 $_lang['seopackage.label_url']                                  = 'URL';
 $_lang['seopackage.label_url_desc']                             = '';
 $_lang['seopackage.label_old_url']                              = 'Old URL';
-$_lang['seopackage.label_old_url_desc']                         = 'The old URL of the redirect (without host). For a wildcard use % (you can pass the wildcard to the new URL with $1), use ^ to start an URL range (ex. ^news) or use $ to end an URL range (ex. news$).';
+$_lang['seopackage.label_old_url_desc']                         = 'The old URL of the redirect (without host). For a wildcard use % (use $NUMBER_WILDCARD to use the wildcard in the new URLs), use ^ to start an URL range (ex. ^news) or use $ to end an URL range (ex. news$).';
 $_lang['seopackage.label_new_url']                              = 'New URL';
 $_lang['seopackage.label_new_url_desc']                         = 'The new URL of the redirect to redirect to (without host). This can be an ID of a resource.';
 $_lang['seopackage.label_context']                              = 'Context';
@@ -99,6 +114,17 @@ $_lang['seopackage.label_last_visit_desc']                      = '';
 
 $_lang['seopackage.label_clean_label']                          = 'Delete 404 pages older then';
 $_lang['seopackage.label_clean_desc']                           = 'days.';
+
+$_lang['seopackage.label_ip_description']                       = 'Description';
+$_lang['seopackage.label_ip_description_desc']                  = 'The description of the IP exception.';
+$_lang['seopackage.label_ip_ip']                                = 'IP number';
+$_lang['seopackage.label_ip_ip_desc']                           = 'The IP number of the IP exception.';
+$_lang['seopackage.label_ip_type']                              = 'Exceptiontype';
+$_lang['seopackage.label_ip_type_desc']                         = 'The exceptiontype of the IP exception.';
+$_lang['seopackage.label_ip_active']                            = 'Active';
+$_lang['seopackage.label_ip_active_desc']                       = '';
+$_lang['seopackage.label_ip_context']                           = 'Context';
+$_lang['seopackage.label_ip_context_desc']                      = 'The context of the IP exception. If there is no context selected the IP exception will be valid on all contexts.';
 
 $_lang['seopackage.resource_longtitle']                         = 'Searchengine title';
 $_lang['seopackage.resource_description']                       = 'Searchengine description';
@@ -121,14 +147,14 @@ $_lang['seopackage.seo_preview_desc']                           = 'Add a descrip
 $_lang['seopackage.resource_allowed_chars']                     = 'Characters';
 $_lang['seopackage.resource_allowed_keywords']                  = 'Searchengine keyword(s)';
 
-$_lang['redirections.filter_context']                           = 'Filter on context...';
-$_lang['redirections.filter_files']                             = 'Show files';
-$_lang['redirections.errors_clean_desc']                        = 'This function makes it possible to delete 404 pages that have not been visited since the specified number of days. This promotion cannot be reversed!';
-$_lang['redirections.errors_clean_executing']                   = 'Busy with cleaning up 404 pages';
-$_lang['redirections.errors_clean_success']                     = '[[+amount]] 404 pages removed.';
-$_lang['redirections.migrate_redirections']                     = 'Migrate existing pages';
-$_lang['redirections.migrate_redirections_confirm']             = 'Are you sure you want to migrate all existing pages?';
-$_lang['redirections.migrate_redirections_success']             = '[[+urls]] URLs and [[+pages]] pages migrated.';
+$_lang['seopackage.filter_context']                             = 'Filter on context...';
+$_lang['seopackage.filter_files']                               = 'Show files';
+$_lang['seopackage.errors_clean_desc']                          = 'This function makes it possible to delete 404 pages that have not been visited since the specified number of days. This promotion cannot be reversed!';
+$_lang['seopackage.errors_clean_executing']                     = 'Busy with cleaning up 404 pages';
+$_lang['seopackage.errors_clean_success']                       = '[[+amount]] 404 pages removed.';
+$_lang['seopackage.migrate_redirections']                       = 'Migrate existing pages';
+$_lang['seopackage.migrate_redirections_confirm']               = 'Are you sure you want to migrate all existing pages?';
+$_lang['seopackage.migrate_redirections_success']               = '[[+urls]] URLs and [[+pages]] pages migrated.';
 $_lang['seopackage.seo_preview_not_allowed']                    = 'Searchengines are now allowed to index this page, therefore no preview is possible.';
 $_lang['seopackage.seo_sitemap_prio_high']                      = '1.0 - High';
 $_lang['seopackage.seo_sitemap_prio_normal']                    = '0.5 - Normal';
@@ -140,3 +166,7 @@ $_lang['seopackage.seo_sitemap_freq_weekly']                    = 'Weekly';
 $_lang['seopackage.seo_sitemap_freq_monthly']                   = 'Monthly';
 $_lang['seopackage.seo_sitemap_freq_yearly']                    = 'Yearly';
 $_lang['seopackage.seo_sitemap_freq_never']                     = 'Never';
+$_lang['seopackage.empty_context']                              = 'All contexts';
+$_lang['seopackage.ip_allow']                                   = 'Allow';
+$_lang['seopackage.ip_deny']                                    = 'Deny';
+$_lang['seopackage.access_denied']                              = 'Your access to the website has been blocked by the Administrator, for more information please contact<a href="mailto:[[++emailsender]]">[[++emailsender]]</a>.';

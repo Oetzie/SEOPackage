@@ -19,6 +19,7 @@ class SeoPackageHomeManagerController extends SeoPackageManagerController
 
         $this->addJavascript($this->modx->seopackage->config['js_url'] . 'mgr/widgets/redirects.grid.js');
         $this->addJavascript($this->modx->seopackage->config['js_url'] . 'mgr/widgets/errors.grid.js');
+        $this->addJavascript($this->modx->seopackage->config['js_url'] . 'mgr/widgets/ips.grid.js');
 
         $this->addLastJavascript($this->modx->seopackage->config['js_url'] . 'mgr/sections/home.js');
     }

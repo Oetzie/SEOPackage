@@ -9,6 +9,7 @@
 $xpdo_meta_map = [
     'xPDOSimpleObject' => [
         'SeoPackageResource',
-        'SeoPackageRedirect'
+        'SeoPackageRedirect',
+        'SeoPackageIP'
     ]
 ];

@@ -9,6 +9,7 @@
 if ($object->xpdo) {
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
+        case xPDOTransport::ACTION_UPGRADE:
             $modx =& $object->xpdo;
             $modx->addPackage('seopackage', $modx->getOption('seopackage.core_path', null, $modx->getOption('core_path') . 'components/seopackage/') . 'model/');
 
@@ -16,6 +17,7 @@ if ($object->xpdo) {
 
             $manager->createObjectContainer('SeoPackageResource');
             $manager->createObjectContainer('SeoPackageRedirect');
+            $manager->createObjectContainer('SeoPackageIP');
 
             break;
     }

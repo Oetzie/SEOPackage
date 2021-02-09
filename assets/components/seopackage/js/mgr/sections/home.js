@@ -18,21 +18,16 @@ SeoPackage.page.Home = function(config) {
     }
 
     config.buttons.push({
-        xtype       : 'modx-combo-context',
+        xtype       : 'seopackage-combo-context',
         hidden      : SeoPackage.config.context,
-        value       : MODx.request.context || MODx.config.default_context,
+        value       : MODx.request.context || '',
         name        : 'seopackage-filter-context',
         emptyText   : _('seopackage.filter_context'),
-        displayField : 'name',
         listeners   : {
             'select'    : {
                 fn          : this.filterContext,
                 scope       : this
             }
-        },
-        baseParams  : {
-            action      : 'context/getlist',
-            exclude     : SeoPackage.config.exclude_contexts.join(',')
         }
     });
 

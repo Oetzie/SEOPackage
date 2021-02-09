@@ -11,6 +11,7 @@ $_lang['seopackage.desc']                                       = 'Wijzig of maa
 
 $_lang['area_seopackage']                                       = 'Zoekmachine optimalisatie';
 $_lang['area_seopackage_seo']                                   = 'Zoekmachine optimalisatie (SEO)';
+$_lang['area_seopackage_ip']                                    = 'Zoekmachine optimalisatie (IP uitzonderingen)';
 
 $_lang['setting_seopackage.branding_url']                       = 'Branding';
 $_lang['setting_seopackage.branding_url_desc']                  = 'De URL waar de branding knop heen verwijst, indien leeg wordt de branding knop niet getoond.';
@@ -58,10 +59,16 @@ $_lang['setting_seopackage.seo_sitemap_freq']                   = 'Sitemap updat
 $_lang['setting_seopackage.seo_sitemap_freq_desc']              = 'De standaard sitemap update frequentie. Standaard is "weekly".';
 $_lang['setting_seopackage.404_page_replace_params']            = 'Vervang 404 pagina URL params';
 $_lang['setting_seopackage.404_page_replace_params_desc']       = 'Indien ja, zullen de 404 pagina URL params vervangen worden voor een wildcard (%). Standaard is "Ja".';
+$_lang['setting_seopackage.ip_save_manager']                    = 'Manager login IP nummer opslaan';
+$_lang['setting_seopackage.ip_save_manager_desc']               = 'Indien ja, zal het IP nummer opgeslagen worden zodat deze altijd toegang heeft tot de website als de site status op offline staat. Standaard is "Ja".';
+$_lang['setting_seopackage.ip_auto_block']                      = 'IP nummer weigeren';
+$_lang['setting_seopackage.ip_auto_block_desc']                 = 'Indien ja, zal het IP nummer opgeslagen en geweigerd worden als deze een niet toegestaande URL probeert te bezoeken. Standaard is "Ja".';
+$_lang['setting_seopackage.ip_auto_block_urls']                 = 'IP nummer weigeren URLs';
+$_lang['setting_seopackage.ip_auto_block_urls_desc']            = 'De URLs waardoor het IP nummer opgeslagen en geweigerd word. Meerdere URLs scheiden met een komma.';
 
 $_lang['seopackage.redirect']                                   = 'URL verwijzing';
 $_lang['seopackage.redirects']                                  = 'URL verwijzingen';
-$_lang['seopackage.redirects_desc']                             = 'Beheer hier alle URL verwijzingen. Een URL verwijzing is bedoelt om oude pagina\'s naar de nieuwe pagina\'s te door te wijzen, bijvoorbeeld links vanuit een andere websites naar jouw website.';
+$_lang['seopackage.redirects_desc']                             = 'Beheer hier alle URL verwijzingen. Een URL verwijzing is bedoelt om oude pagina\'s naar de nieuwe pagina\'s te door te wijzen, bijvoorbeeld links vanuit een andere websites naar jouw website. Het is mogelijk om wildcards te gebruiken in de URL verwijzing. Voor een wildcard in de oude URL gebruik % (gebruik $NUMMER_WILCARD om de wildcard te gebruiken in de nieuwe URL), gebruik een ^ om een IP reeks te starten (bv ^172.0.) of gebruik $ om een IP reeks te eindigen (bv .0.1$).';
 $_lang['seopackage.redirect_create']                            = 'Nieuwe URL verwijzing';
 $_lang['seopackage.redirect_update']                            = 'URL verwijzing wijzigen';
 $_lang['seopackage.redirect_remove']                            = 'URL verwijzing verwijderen';
@@ -80,10 +87,18 @@ $_lang['seopackage.errors_clean_confirm']                       = 'Weet je zeker
 $_lang['seopackage.errors_reset']                               = 'Alle 404 pagina\'s verwijderen';
 $_lang['seopackage.errors_reset_confirm']                       = 'Weet je zeker dat je alle 404 pagina\'s wilt verwijderen?';
 
+$_lang['seopackage.ip']                                         = 'IP uitzondering';
+$_lang['seopackage.ips']                                        = 'IP uitzonderingen';
+$_lang['seopackage.ips_desc']                                   = 'Beheer hier alle IP uitzonderingen. Een IP uitzondering is bedoelt om bezoeker aan de hand van het IP nummer toegang tot de website te verlenen (als de website bijvoorbeeld offline is) of weigeren. Het is mogelijk om wildcards te gebruiken in de IP uitzondering. Voor een wildcard in het IP nummer gebruik %, gebruik een ^ om een IP reeks te starten (bv ^172.0.) of gebruik $ om een IP reeks te eindigen (bv .0.1$).';
+$_lang['seopackage.ip_create']                                  = 'Nieuwe IP uitzondering';
+$_lang['seopackage.ip_update']                                  = 'IP uitzondering wijzigen';
+$_lang['seopackage.ip_remove']                                  = 'IP uitzondering verwijderen';
+$_lang['seopackage.ip_remove_confirm']                          = 'Weet je zeker dat je deze IP uitzondering wilt verwijderen?';
+
 $_lang['seopackage.label_url']                                  = 'URL';
 $_lang['seopackage.label_url_desc']                             = '';
 $_lang['seopackage.label_old_url']                              = 'Oude URL';
-$_lang['seopackage.label_old_url_desc']                         = 'De oude URL van de verwijzing (zonder host). Voor een wildcard gebruik % (deze wildcard kun je door geven aan de nieuwe URL met $1), gebruik een ^ om een URL reeks te starten (bv ^nieuws) of gebruik $ om een URL reeks te eindigen (bv nieuws$).';
+$_lang['seopackage.label_old_url_desc']                         = 'De oude URL van de verwijzing (zonder host). Voor een wildcard gebruik % (gebruik $NUMMER_WILCARD om de wildcard te gebruiken in de nieuwe URL), gebruik een ^ om een URL reeks te starten (bv ^nieuws) of gebruik $ om een URL reeks te eindigen (bv nieuws$).';
 $_lang['seopackage.label_new_url']                              = 'Nieuwe URL';
 $_lang['seopackage.label_new_url_desc']                         = 'De nieuwe URL waar de verwijzing heen moet verwijzen (zonder host). Dit kan ook een ID van een pagina zijn.';
 $_lang['seopackage.label_context']                              = 'Context';
@@ -99,6 +114,17 @@ $_lang['seopackage.label_last_visit_desc']                      = '';
 
 $_lang['seopackage.label_clean_label']                          = 'Verwijder 404 pagina\'s ouder dan';
 $_lang['seopackage.label_clean_desc']                           = 'dagen.';
+
+$_lang['seopackage.label_ip_description']                       = 'Omschrijving';
+$_lang['seopackage.label_ip_description_desc']                  = 'De omschrijving van de IP uitzondering.';
+$_lang['seopackage.label_ip_ip']                                = 'IP nummer';
+$_lang['seopackage.label_ip_ip_desc']                           = 'Het IP nummer van de IP uitzondering.';
+$_lang['seopackage.label_ip_type']                              = 'Uitzonderingstype';
+$_lang['seopackage.label_ip_type_desc']                         = 'De uitzonderingstype van de IP uitzondering.';
+$_lang['seopackage.label_ip_active']                            = 'Actief';
+$_lang['seopackage.label_ip_active_desc']                       = '';
+$_lang['seopackage.label_ip_context']                           = 'Context';
+$_lang['seopackage.label_ip_context_desc']                      = 'De context van de IP uitzondering. Als er geen context geselecteerd word geldt deze IP uitzondering voor alle contexten.';
 
 $_lang['seopackage.resource_longtitle']                         = 'Zoekmachine titel';
 $_lang['seopackage.resource_description']                       = 'Zoekmachine omschrijving';
@@ -140,3 +166,7 @@ $_lang['seopackage.seo_sitemap_freq_weekly']                    = 'Wekelijks';
 $_lang['seopackage.seo_sitemap_freq_monthly']                   = 'Maandelijks';
 $_lang['seopackage.seo_sitemap_freq_yearly']                    = 'Jaarlijks';
 $_lang['seopackage.seo_sitemap_freq_never']                     = 'Nooit';
+$_lang['seopackage.empty_context']                              = 'Alle contexten';
+$_lang['seopackage.ip_allow']                                   = 'Toestaan';
+$_lang['seopackage.ip_deny']                                    = 'Weigeren';
+$_lang['seopackage.access_denied']                              = 'Je toegang tot de website is geblokkeerd door de Administrator, voor meer informatie neem contact op met <a href="mailto:[[++emailsender]]">[[++emailsender]]</a>.';
