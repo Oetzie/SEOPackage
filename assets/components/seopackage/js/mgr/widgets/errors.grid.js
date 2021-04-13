@@ -375,21 +375,39 @@ SeoPackage.window.CleanErrors = function(config) {
             value       : MODx.request.context || ''
         }, {
             xtype       : 'modx-panel',
+            cls         : 'x-field-seo-clean',
             items       : [{
                 xtype       : 'label',
-                html        : _('seopackage.label_clean_label')
+                html        : _('seopackage.label_clean_days_label')
             }, {
                 xtype       : 'numberfield',
                 name        : 'days',
-                minValue    : 1,
-                maxValue    : 9999999999,
+                minValue    : 0,
                 value       : SeoPackage.config.clean_days,
                 width       : 75,
                 allowBlank  : false,
                 style       : 'margin: 0 10px;'
             }, {
                 xtype       : 'label',
-                html        : _('seopackage.label_clean_desc'),
+                html        : _('seopackage.label_clean_days_desc')
+            }]
+        }, {
+            xtype       : 'modx-panel',
+            cls         : 'x-field-seo-clean',
+            items       : [{
+                xtype       : 'label',
+                html        : _('seopackage.label_clean_hits_label')
+            }, {
+                xtype       : 'numberfield',
+                name        : 'hits',
+                minValue    : 0,
+                value       : SeoPackage.config.clean_hits,
+                width       : 75,
+                allowBlank  : false,
+                style       : 'margin: 0 10px;'
+            }, {
+                xtype       : 'label',
+                html        : _('seopackage.label_clean_hits_desc')
             }]
         }],
         keys        : [],

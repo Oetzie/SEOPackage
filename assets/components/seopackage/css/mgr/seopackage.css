@@ -238,3 +238,7 @@
 .x-field-seo-meta.x-field-seo-meta-yandex .x-field-seo-meta-description {
     color: #333;
 }
+
+.x-field-seo-clean + .x-field-seo-clean {
+    margin-top: 15px;
+}

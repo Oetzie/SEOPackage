@@ -321,9 +321,23 @@ class SeoPackageCronjob extends SeoPackage
         $criteria = $this->modx->newQuery('SeoPackageRedirect');
 
         $criteria->where([
-             'active'        => 2,
-             'last_visit:<'  => date('Y-m-d', strtotime('-' . $this->modx->getOption('seopackage.clean_days', null, 30) .' days'))
+             'active' => 2
          ]);
+
+        $days   = (int) $this->modx->getOption('seopackage.clean_days', null, 30);
+        $hits   = (int) $this->modx->getOption('seopackage.clean_hits', null, 0);
+
+        if ($days > 0) {
+            $criteria->where([
+                'last_visit:<'  => date('Y-m-d', strtotime('-' . $days .' days'))
+            ]);
+        }
+
+        if ($hits > 0) {
+            $criteria->where([
+                'visits:<' => $hits
+            ]);
+        }
 
         foreach ($this->modx->getCollection('SeoPackageRedirect', $criteria) as $object) {
             $object->remove();

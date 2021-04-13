@@ -48,10 +48,30 @@ class SeoPackageRedirectsCleanProcessor extends modObjectProcessor
         $criteria = $this->modx->newQuery($this->classKey);
 
         $criteria->where([
-            'context:IN'    => [$this->getProperty('context'), ''],
-            'active'        => 2,
-            'last_visit:<'  => date('Y-m-d', strtotime('-' . $this->getProperty('days', $this->modx->seopackage->getOption('clean_days')) .' days'))
+            'active'    => 2
         ]);
+
+        $context    = $this->getProperty('context');
+        $days       = (int) $this->getProperty('days', $this->modx->seopackage->getOption('clean_days'));
+        $hits       = (int) $this->getProperty('hits', $this->modx->seopackage->getOption('clean_hits'));
+
+        if (!empty($context)) {
+            $criteria->where([
+                'context' => $context
+            ]);
+        }
+
+        if ($days > 0) {
+            $criteria->where([
+                'last_visit:<' => date('Y-m-d', strtotime('-' . $days .' days'))
+            ]);
+        }
+
+        if ($hits > 0) {
+            $criteria->where([
+                'visits:<' => $hits
+            ]);
+        }
 
         foreach ($this->modx->getCollection($this->classKey, $criteria) as $object) {
             if ($object->remove()) {

@@ -50,18 +50,17 @@ class SeoPackage
             'css_url'                   => $assetsUrl . 'css/',
             'assets_url'                => $assetsUrl,
             'connector_url'             => $assetsUrl . 'connector.php',
-            'version'                   => '1.2.0',
+            'version'                   => '1.3.0',
             'branding_url'              => $this->modx->getOption('seopackage.branding_url', null, ''),
             'branding_help_url'         => $this->modx->getOption('seopackage.branding_url_help', null, ''),
             'context'                   => $this->getContexts(),
             'exclude_contexts'          => array_merge(['mgr'], explode(',', $this->modx->getOption('seopackage.exclude_contexts', null, ''))),
             'migrate'                   => (bool) $this->modx->getOption('seopackage.migrate', null, false),
             'clean_days'                => (int) $this->modx->getOption('seopackage.clean_days', null, 30),
+            'clean_hits'                => (int) $this->modx->getOption('seopackage.clean_hits', null, 0),
             'seo_fields'                => $this->getSeoFields(),
             'seo_fields_style'          => $this->modx->getOption('seopackage.seo_fields_style', null, 'bar'),
             'seo_keywords_fields'       => explode(',', $this->modx->getOption('seopackage.seo_keywords_fields', null, 'longtitle,description,alias,ta')),
-            'seo_title_format'          => $this->modx->getOption('seopackage.seo_title_format', null, '[[+title]] - [[++site_name]]'),
-            'seo_description_format'    => $this->modx->getOption('seopackage.seo_description_format', null, '[[+description]]'),
             'preview_search_engine'     => $this->modx->getOption('seopackage.preview_search_engine', null, 'google'),
             'seo_index'                 => (bool) $this->modx->getOption('seopackage.seo_index', null, true),
             'seo_follow'                => (bool) $this->modx->getOption('seopackage.seo_follow', null, true),
@@ -208,50 +207,57 @@ class SeoPackage
      */
     public function getSeoMeta($type, array $properties = [])
     {
-        $value = '';
+        $processedValue     = '';
+        $unProcessedValue   = '';
 
-        if ($type === 'title') {
-            $value = $this->config['seo_title_format'];
-        } else if ($type === 'description') {
-            $value = $this->config['seo_description_format'];
+        if ($this->modx->resource) {
+            $resource = $this->modx->resource;
+        } else {
+            $resource = $this->modx->newObject('modResource', $properties);
+
+            if (isset($properties['id'])) {
+                $resource->set('id', $properties['id']);
+            }
         }
 
-        $processedValue     = $value;
-        $unProcessedValue   = $value;
+        if ($resource) {
+            if ($type === 'title') {
+                $value = $this->modx->getOption('seopackage.seo_title_format', null, '[[+title]] - [[++site_name]]');
 
-        if (!empty($value)) {
-            if ($this->modx->resource) {
-                $resource = $this->modx->resource;
+                if ((int) $resource->get('id') === (int) $this->modx->getOption('site_start')) {
+                    $value = $this->modx->getOption('seopackage.seo_title_home_format', null, '[[++site_name]] - [[+title]]');
+                }
             } else {
-                $resource = $this->modx->newObject('modResource', $properties);
+                $value = $this->modx->getOption('seopackage.seo_description_format', null, '[[+description]]');
             }
 
-            if ($resource) {
-                $data = [
-                    'title'         => $resource->get('longtitle') ?: $resource->get('pagetitle'),
-                    'pagetitle'     => $resource->get('pagetitle'),
-                    'longtitle'     => $resource->get('longtitle'),
-                    'alias'         => $resource->get('alias'),
-                    'menutitle'     => $resource->get('menutitle'),
-                    'introtext'     => $resource->get('introtext'),
-                    'description'   => $resource->get('description')
-                ];
+            $processedValue     = $value;
+            $unProcessedValue   = $value;
 
-                $parser = $this->modx->newObject('modChunk', [
-                    'name' => $this->config['namespace'] . uniqid()
-                ]);
+            $data = [
+                'title'         => $resource->get('longtitle') ?: $resource->get('pagetitle'),
+                'pagetitle'     => $resource->get('pagetitle'),
+                'longtitle'     => $resource->get('longtitle'),
+                'alias'         => $resource->get('alias'),
+                'menutitle'     => $resource->get('menutitle'),
+                'introtext'     => $resource->get('introtext'),
+                'description'   => $resource->get('description')
+            ];
 
-                if ($parser) {
-                    $parser->setCacheable(false);
+            $parser = $this->modx->newObject('modChunk', [
+                'name' => $this->config['namespace'] . uniqid()
+            ]);
 
-                    $processedValue     = $parser->process($data, $processedValue);
+            if ($parser) {
+                $parser->setCacheable(false);
 
-                    if (isset($data[$type])) {
-                        $data[$type] = '';
-                    }
+                $processedValue = $parser->process($data, $processedValue);
 
-                    $unProcessedValue   = $parser->process($data, $unProcessedValue);
+                if (isset($data[$type])) {
+                    $data[$type] = '';
                 }
+
+                $unProcessedValue = $parser->process($data, $unProcessedValue);
             }
         }
 
