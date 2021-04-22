@@ -47,24 +47,36 @@ class SeoPackageSnippetSitemap extends SeoPackageSnippets
             'modResource.deleted'       => 0
         ]);
 
+        $criteria->where([
+                             'modResource.context_key'   => $this->modx->context->get('key'),
+                             'modResource.published'     => 1,
+                             'modResource.deleted'       => 0
+                         ]);
+
+        $where = [];
+
         if ($this->config['seo_sitemap'] === 0) {
-            $criteria->where([
+            $where[] = [
                 'SeoPackageResource.index = 1'
-            ]);
+            ];
         } else {
-            $criteria->where([
-                '`SeoPackageResource`.`index` = 1 OR `SeoPackageResource`.`index` IS NULL'
-            ]);
+            $where[] = [
+                '(`SeoPackageResource`.`index` = 1 OR `SeoPackageResource`.`index` IS NULL)'
+            ];
         }
 
         if ($this->config['seo_sitemap'] === 0) {
-            $criteria->where([
+            $where[] = [
                 'SeoPackageResource.sitemap = 1'
-            ]);
+            ];
         } else {
-            $criteria->where([
-                '`SeoPackageResource`.`sitemap` = 1 OR `SeoPackageResource`.`sitemap` IS NULL'
-            ]);
+            $where[] = [
+                '(`SeoPackageResource`.`sitemap` = 1 OR `SeoPackageResource`.`sitemap` IS NULL)'
+            ];
+        }
+
+        if (count($where) >= 1) {
+            $criteria->where($where);
         }
 
         $criteria->groupby('modResource.id');
